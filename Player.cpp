@@ -1,9 +1,9 @@
 #include "Player.h"
 
-Player::Player()
+Player::Player(sf::RenderWindow& window)
 {
 	_Paddle.setFillColor(sf::Color::Green);
-	_Paddle.setPosition(sf::Vector2f(512, 730));
+	_Paddle.setPosition(sf::Vector2f(window.getSize().x / 2.f, 730));
 	_Paddle.setSize(sf::Vector2f(100, 15));
 }
 
@@ -26,26 +26,19 @@ void Player::Movement(float dT)
 
 void Player::MovementCheck()
 {
-	while (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
-	{
-		PVelocity = PVelocity - 1.f;
-		if (PVelocity > -1.f)
-		{
-			PVelocity = -1.f;
-		}
-	}
-	while (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
-	{
-		PVelocity = PVelocity + 1.f;
-		if (PVelocity > 1.f)
-		{
-			PVelocity = 1.f;
-		}
-	}
-	if (sf::Keyboard::isKeyPressed == false)
+	while  (IsBothKeyPressed() == true || IsKeyPressed() == false)
 	{
 		PVelocity = 0.f;
 	}
+	while (sf::Keyboard::isKeyPressed(sf::Keyboard::A))
+	{
+		PVelocity = -1.f;
+	}
+	while (sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		PVelocity = 1.f;
+	}
+	
 }
 
 sf::Vector2f Player::PPosition()
@@ -73,19 +66,30 @@ float Player::PRight()
 	return _Paddle.getPosition().x + 100.f;
 }
 
-float Player::PRightMiddle()
-{
-	return _Paddle.getPosition().x + 66.f;
-}
-
-float Player::PLeftMiddle()
-{
-	return _Paddle.getPosition().x + 33.f;
-}
-
 float Player::getPVelocity()
 {
 	return PVelocity;
+}
+
+bool Player::IsKeyPressed()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) || sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+bool Player::IsBothKeyPressed()
+{
+	if (sf::Keyboard::isKeyPressed(sf::Keyboard::A) && sf::Keyboard::isKeyPressed(sf::Keyboard::D))
+	{
+		return true;
+	}
+	else return false;
 }
 
 sf::FloatRect Player::PaddleBoundingBox()

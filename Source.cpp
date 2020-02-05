@@ -7,10 +7,15 @@ int main()
 {
 	sf::RenderWindow window(sf::VideoMode(1024, 768), "Arkanoid");
 	window.setVerticalSyncEnabled(true);
-
+	
 	BlocksField blocksfield;
 
-	game game(Player & _Paddle);
+	BlocksField* Block;
+	Player* Paddle;
+
+	game Game();
+
+	
 
 	sf::Clock clock;
 	float dT;
@@ -27,11 +32,12 @@ int main()
 			}
 		}
 
-		game.update(dT,Block,Paddle);
+		Game.update(dT,Block,Paddle);
+		
 
 		window.clear();
 		blocksfield.draw(window);
-		game.render(window);
+		Game.render(window);
 		window.display();
 	}
 }

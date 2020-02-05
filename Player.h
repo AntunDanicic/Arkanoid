@@ -4,7 +4,7 @@
 class Player
 {
 public:
-	Player();
+	Player(sf::RenderWindow& window);
 
 	void Draw(sf::RenderWindow& window);
 	void Movement(float dT);
@@ -21,6 +21,8 @@ public:
 
 	float PVelocity = 0.f;
 	float getPVelocity();
+	bool IsKeyPressed();
+	bool IsBothKeyPressed();
 
 	sf::FloatRect PaddleBoundingBox();
 
